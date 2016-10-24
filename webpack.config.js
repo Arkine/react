@@ -16,9 +16,8 @@ const modules = join(root, 'node_modules');
 const dest    = join(root, 'dist');
 
 const NODE_ENV = process.env.NODE_ENV;
-const TEST_ENV = process.env.TEST_ENV;
 const isDev = NODE_ENV === 'development';
-const isTest = TEST_ENV === 'true';
+const isTest = NODE_ENV === 'test';
 
 const cssModulesNames = `${isDev ? '[path][name]__[local]__' : ''}[hash:base64:5]`;
 const matchCssLoaders = /(^|!)(css-loader)($|!)/;
@@ -32,7 +31,7 @@ const environmentEnv = dotenv.config({
 const envVariables = Object.assign({}, dotEnvVars, environmentEnv);
 
 let config = getConfig({
-  isDev: isDev,
+  isDev: isDev || isTest,
   in: join(src, 'app.js'),
   out: dest,
   clearBeforeBuild: true

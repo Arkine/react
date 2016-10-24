@@ -1,36 +1,31 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import { Router } from 'react-router';
 
 import styles from './styles.module.css';
 
-
 export default class App extends React.Component {
-  render() {
-    return (
-    	<div className={styles.wrapper}>
-    		<h1>Environment: {__NODE_ENV__}</h1>
-    		<div>
-    			<i className="fa fa-star"></i>
-    			<p>This is the app!</p>
-    		</div>
-    	</div>
-    );
-  }
+	static propTypes = {
+		routes: PropTypes.object.isRequired,
+		history: PropTypes.object.isRequired
+	}
+
+	get content() {
+		return(
+			<Router 
+				routes={this.props.routes}
+				history={this.props.history} 
+			/>
+		);
+	}
+
+	render() {
+		return (
+			<div className={styles.wrapper}>
+				<div>
+					{this.content}
+				</div>
+			</div>
+		);
+	}
 }
-
-// const App = React.createClass({
-//   render: function() {
-//     return (
-//         <div className={styles.wrapper}>
-//             <h1>Environment: {__NODE_ENV__}</h1>
-//             <div>
-//                 <i className="fa fa-star"></i>
-//                 <p>This is the app!</p>
-//             </div>
-//         </div>
-//     );
-//   }
-// });
-
-const mountNode = document.querySelector('#root');
-ReactDOM.render(<App />, mountNode);

@@ -3,6 +3,7 @@
 
 const path = require('path');
 const webpackConfig = require('./webpack.config');
+const argv = require('yargs').argv;
 
 module.exports = function(config) {
   config.set({
@@ -69,7 +70,7 @@ module.exports = function(config) {
 
 	// Continuous Integration mode
 	// if true, Karma captures browsers, runs the tests and exits
-	singleRun: false,
+	singleRun: !argv.watch,
 
 	// Concurrency level
 	// how many browser should be started simultaneous
@@ -83,5 +84,7 @@ module.exports = function(config) {
 	  'karma-spec-reporter',
 	  'karma-sourcemap-loader'
 	],
+
+
   })
 }
