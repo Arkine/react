@@ -24,6 +24,7 @@
     "chai": "^3.5.0",
     "chai-enzyme": "^0.5.2",
     "cheerio": "^0.22.0",
+    "classnames": "^2.2.5",
     "css-loader": "^0.25.0",
     "cssnano": "^3.8.0",
     "dotenv": "^2.0.0",

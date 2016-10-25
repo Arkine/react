@@ -13,6 +13,6 @@ describe('<App />', () => {
 	})
 
 	it('has a Router component', () => {
-		expect(wrapper.find('Router').to.have.length(1));
+		expect(wrapper.find('Router')).to.have.length(1);
  	});
 });
