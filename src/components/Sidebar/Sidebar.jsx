@@ -13,7 +13,7 @@ export default class Sidebar extends React.Component {
 				</div>
 				<Listing 
 					places={this.props.places}
-				/>
+				/>				
 			</div>
 		)
 	}
