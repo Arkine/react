@@ -12,7 +12,6 @@ export default class Rating extends React.Component {
 			width: `${(percentage || 0) * 100}%`
 		}
 
-		console.log('percentage', style.width);
 		return(
 			<div className={styles.sprite}>
 
