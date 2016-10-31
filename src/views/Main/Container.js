@@ -14,7 +14,7 @@ export class Container extends React.Component {
 		places: [],
 		pagination: null
 	}
-	
+
 	onReady = (mapProps, map) => {
 		const {google} = this.props;
 
@@ -35,9 +35,15 @@ export class Container extends React.Component {
 			})
 	}
 
-	render() {
+	onMarkerClick(item) {
+		const {place} = item;
+		const {push} = this.context.router;
+		push(`/map/detail/${place.place_id}`);
+	}
 
-let children = null;
+	render() {
+		let children = null;
+
 		if (this.props.children) {
 
 			children = React.cloneElement(
@@ -45,7 +51,8 @@ let children = null;
 				{
 					google: this.props.google,
 					places: this.state.places,
-					loaded: this.props.loaded
+					loaded: this.props.loaded,
+					onMarkerClick: this.onMarkerClick.bind(this)
 				});
 		}
 		return(
@@ -69,6 +76,10 @@ let children = null;
 			</div>
 		);
 	}
+}
+
+Container.contextTypes = {
+	router: React.PropTypes.object
 }
 
 export default GoogleApiWrapper({
