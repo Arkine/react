@@ -16,7 +16,7 @@ export default class Detail extends React.Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		if (this.props.map && 
+		if (this.props.map &&
 			(prevProps.map !== this.props.map ||
 			prevProps.params.placeId !== this.props.params.placeId)) {
 				this.getDetails(this.props.map);
@@ -24,6 +24,7 @@ export default class Detail extends React.Component {
 	}
 
 	componentDidMount() {
+		console.log('props: ', this.props)
 		if (this.props.map) {
 			this.getDetails(this.props.map);
 		}
@@ -63,7 +64,7 @@ export default class Detail extends React.Component {
 		      	</div>
 		    );
 	}
-	
+
 	render() {
 		if (this.state.loading) {
 			return(<div className={styles.wrapper}>Loading...</div>);

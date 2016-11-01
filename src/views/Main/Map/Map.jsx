@@ -6,10 +6,10 @@ import Map, { Marker } from "google-maps-react";
 import styles from './styles.module.css';
 
 export default class MapComponent extends React.Component {
-	
+
 	renderChildren() {
 		const {children} = this.props;
-		
+
 		if (React.Children.count(children) > 0) {
 			return React.Children.map(children, c => {
 				return React.cloneElement(c, this.props, {
@@ -40,6 +40,14 @@ export default class MapComponent extends React.Component {
 	}
 
 	render() {
+		if (React.Children.count(this.props.children) > 0) {
+			return(
+				<div>
+					{this.renderChildren()}
+				</div>
+			);
+		}
+
 		return (
 			<Map google={this.props.google} className={styles.map}>
 				{this.renderChildren()}

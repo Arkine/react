@@ -36,6 +36,7 @@ let config = getConfig({
   out: dest,
   clearBeforeBuild: true
 });
+
 if (isTest) {
 	config.externals = {
 		'react/lib/ReactContext': true,
@@ -60,7 +61,7 @@ const defines = Object.keys(envVariables).reduce((memo, key) => {
 
 	memo[`__${key.toUpperCase()}__`] = val;
 	return memo;
-	
+
 	}, {
 	__NODE_ENV__: JSON.stringify(NODE_ENV)
 });

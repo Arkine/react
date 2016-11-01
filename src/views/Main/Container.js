@@ -9,7 +9,7 @@ import Sidebar from 'components/Sidebar/Sidebar';
 import styles from './styles.module.css';
 
 export class Container extends React.Component {
-			
+
 	state = {
 		places: [],
 		pagination: null
@@ -31,7 +31,7 @@ export class Container extends React.Component {
 					pagination
 				})
 			}).catch((status, result) => {
-				console.log('There was an error: ', status) 
+				console.log('There was an error: ', status)
 			})
 	}
 
@@ -56,9 +56,9 @@ export class Container extends React.Component {
 				});
 		}
 		return(
-			<div> 
-				
-				<Map 
+			<div>
+
+				<Map
 					google={this.props.google}
 					onReady={this.onReady}
 					className={styles.wrapper}
