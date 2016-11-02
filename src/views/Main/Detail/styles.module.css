@@ -7,3 +7,23 @@
 		font-size: 1.5rem;
 	}
 }
+
+.details {
+	padding: 0 var(--padding);
+
+	.photoStrip {
+		flex: 1;
+		display: flex;
+		overflow: auto;
+
+		img {
+			margin: 0 1px;
+		}
+	}
+
+	::webkit-scrollbar {
+		width: 0;
+		background: transparent;
+	}
+
+}

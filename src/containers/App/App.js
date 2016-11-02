@@ -5,6 +5,10 @@ import { Router } from 'react-router';
 import styles from './styles.module.css';
 
 export default class App extends React.Component {
+	static contextTypes = {
+		route: PropTypes.object
+	}
+	
 	static propTypes = {
 		routes: PropTypes.object.isRequired,
 		history: PropTypes.object.isRequired

@@ -40,7 +40,9 @@ export default class Detail extends React.Component {
 				}
 
 				this.setState({
-					place, location: loc, loading: false
+					place, 
+					location: loc, 
+					loading: false
 				});
 			})
 		});

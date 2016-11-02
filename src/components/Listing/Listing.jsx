@@ -6,6 +6,12 @@ import Item from './Item';
 import styles from "./styles.module.css";
 
 export default class Listing extends React.Component {
+	defaultProps = {
+		onHighlight: () => {},
+		offHighlight: () => {},
+		onClick: () => {},
+	}
+
 	render() {
 		return (
 			<div className={classnames(styles.container)}>
@@ -14,10 +20,19 @@ export default class Listing extends React.Component {
 					<Item 
 						place={place}
 						onClick={this.props.onClick}
+						onHighlight={this.props.onHighlight}
+						offHighlight={this.props.offHighlight}
 						key={place.id} />
 				)
 			})}
 			</div>
 		)
 	}
+}
+
+Listing.propTypes = {
+	places: T.array.isRequired,
+	onHighlight: T.func,
+	offHighlight: T.func,
+	onClick: T.func
 }

@@ -20,7 +20,7 @@ export class Container extends React.Component {
 
 		const opts = {
 			location: map.center,
-			radius: '500',
+			radius: '50000',
 			types: ['cafe']
 		}
 
@@ -52,6 +52,7 @@ export class Container extends React.Component {
 					google: this.props.google,
 					places: this.state.places,
 					loaded: this.props.loaded,
+					router: this.context.router,
 					onMarkerClick: this.onMarkerClick.bind(this)
 				});
 		}
