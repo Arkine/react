@@ -55,25 +55,25 @@ export class Container extends React.Component {
 					onMarkerClick: this.onMarkerClick.bind(this)
 				});
 		}
+		
 		return(
-			<div>
+						<Map
+				google={this.props.google}
+				onReady={this.onReady}
+				className={styles.wrapper}
+				visible={false}
+				visible={!children || React.Children.count(children) == 0}
+			>
+				<Header />
+				<Sidebar
+					title={'Restaurants'}
+					places={this.state.places}
+				/>
+				<div className={styles.content}>
+					{children}
+				</div>
+			</Map>
 
-				<Map
-					google={this.props.google}
-					onReady={this.onReady}
-					className={styles.wrapper}
-					visible={false}
-				>
-					<Header />
-					<Sidebar
-						title={'Restaurants'}
-						places={this.state.places}
-					/>
-					<div className={styles.content}>
-						{children}
-					</div>
-				</Map>
-			</div>
 		);
 	}
 }

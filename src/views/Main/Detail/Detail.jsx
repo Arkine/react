@@ -5,14 +5,10 @@ import {getDetails} from 'utils/googleApiHelpers'
 import styles from './styles.module.css'
 
 export default class Detail extends React.Component {
-	constructor(props, context) {
-		super(props, context)
-
-		this.state = {
-			loading: true,
-			place: {},
-			location: {}
-		}
+	state = {
+		loading: true,
+		place: {},
+		location: {}
 	}
 
 	componentDidUpdate(prevProps) {
@@ -24,7 +20,7 @@ export default class Detail extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log('props: ', this.props)
+		
 		if (this.props.map) {
 			this.getDetails(this.props.map);
 		}
