@@ -1,14 +1,15 @@
-import React, { PropTypes as T } from 'react'
+import React, { PropTypes as T } from 'react';
 
-import {getDetails} from 'utils/googleApiHelpers'
+import {getDetails} from 'utils/googleApiHelpers';
 
-import styles from './styles.module.css'
+import styles from './styles.module.css';
+import InfoBox from  '../InfoBox/InfoBox';
 
 export default class Detail extends React.Component {
 	state = {
-		loading: true,
 		place: {},
-		location: {}
+		location: {},
+		loading: true
 	}
 
 	componentDidUpdate(prevProps) {
@@ -20,7 +21,7 @@ export default class Detail extends React.Component {
 	}
 
 	componentDidMount() {
-		
+
 		if (this.props.map) {
 			this.getDetails(this.props.map);
 		}
@@ -33,6 +34,7 @@ export default class Detail extends React.Component {
 		this.setState({loading: true}, () => {
 			getDetails(google, map, placeId)
 			.then( place => {
+				console.log('place: ', place);
 				const {location} = place.geometry;
 				const loc = {
 					lat: location.lat(),
@@ -40,8 +42,8 @@ export default class Detail extends React.Component {
 				}
 
 				this.setState({
-					place, 
-					location: loc, 
+					place,
+					location: loc,
 					loading: false
 				});
 			})
@@ -77,6 +79,8 @@ export default class Detail extends React.Component {
 				<div className={styles.details}>
 					{this.renderPhotos(place)}
 				</div>
+
+				<InfoBox place={this.state.place}/>
 			</div>
 		)
 	}

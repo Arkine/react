@@ -35,7 +35,7 @@ export class Container extends React.Component {
 			})
 	}
 
-	onMarkerClick(item) {
+	onMarkerClick = (item) => {
 		const {place} = item;
 		const {push} = this.context.router;
 		push(`/map/detail/${place.place_id}`);
@@ -53,12 +53,13 @@ export class Container extends React.Component {
 					places: this.state.places,
 					loaded: this.props.loaded,
 					router: this.context.router,
-					onMarkerClick: this.onMarkerClick.bind(this)
+					onMarkerClick: this.onMarkerClick
+
 				});
 		}
-		
+
 		return(
-						<Map
+			<Map
 				google={this.props.google}
 				onReady={this.onReady}
 				className={styles.wrapper}
@@ -69,6 +70,7 @@ export class Container extends React.Component {
 				<Sidebar
 					title={'Restaurants'}
 					places={this.state.places}
+					onListItemClick={this.onMarkerClick}
 				/>
 				<div className={styles.content}>
 					{children}

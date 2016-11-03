@@ -1,15 +1,15 @@
 import React, { PropTypes as T } from 'react';
-
+import { connect } from 'react-redux';
 import classnames from 'classnames';
-import Map, { GoogleApiWrapper, Marker } from "google-maps-react";
+import Map, { GoogleApiWrapper, Marker } from 'google-maps-react';
 
 import styles from './styles.module.css';
 
-export default class MapComponent extends React.Component {
+class MapComponent extends React.Component {
 
 	renderChildren() {
 		const {children} = this.props;
-		
+
 		if (React.Children.count(children) > 0) {
 			return React.Children.map(children, c => {
 				return React.cloneElement(c, this.props, {
@@ -34,8 +34,8 @@ export default class MapComponent extends React.Component {
 						place={place}
 						label={place.name}
 						map={this.props.map}
-						onClick={this.props.onMarkerClick.bind(this)}
-						position={place.geometry.location}						
+						onClick={this.props.onMarkerClick}
+						position={place.geometry.location}
 					/>
 		})
 	}
@@ -44,8 +44,8 @@ export default class MapComponent extends React.Component {
 		const {children} = this.props;
 
 		return (
-			<Map 
-				google={this.props.google} 
+			<Map
+				google={this.props.google}
 				className={styles.map}
 				map={this.props.map}
 				visible={!children || React.Children.count(children) == 0}
@@ -66,3 +66,15 @@ const identity = (...a) => a;
 MapComponent.defualtProps = {
 	onMarkerClick: identity
 }
+
+mapStateToProps = () => {
+	return {};
+}
+
+mapDispatchToProps = (dispatch) => {
+	return { dispatch }
+}
+
+MapComponent = connect(mapStateToProps, mapDispatchToProps)(MapComponent);
+
+export default MapComponent;

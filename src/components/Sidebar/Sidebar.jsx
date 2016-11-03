@@ -7,7 +7,9 @@ import styles from './styles.module.css';
 
 export default class Sidebar extends React.Component {
 	defaultProps = {
-		title: 'Restaurants'
+		title: 'Restaurants',
+		places: [],
+		onListItemClick: () => {}
 	}
 
 	onClickHandler = (place, map, google) => {
@@ -16,16 +18,17 @@ export default class Sidebar extends React.Component {
 			this.props.onListItemClick(place, map, google);
 		}
 	}
+
 	render() {
 		return(
 			<div className={classnames(styles.sidebar)}>
 				<div className={classnames(styles.heading)}>
 					<h1>{this.props.title}</h1>
 				</div>
-				<Listing 
+				<Listing
 					places={this.props.places}
 					onClick={this.onClickHandler}
-				/>				
+				/>
 			</div>
 		)
 	}
