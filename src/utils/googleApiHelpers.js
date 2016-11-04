@@ -18,10 +18,23 @@ export function getDetails(google, map, placeId) {
 		const request = {placeId}
 
 		service.getDetails(request, (place, status) => {
-			if (status !== google.maps.places.PlacesServiceStatus.OK) {
-			return reject(status);
+			if (status == google.maps.places.PlacesServiceStatus.OK) {
+				resolve(place);
 			} else {
-			resolve(place);
+				reject(status);
+			}
+		})
+	})
+}
+
+export function getLocationCoords(address) {
+	return new Promise((resolve, reject) => {
+		const service = new google.maps.GeoCoder();
+		service.geocode({'address': address}, (results, status) => {
+			if (status == google.maps.GeocoderStatus.OK) {
+				resolve(results);
+			} else {
+				reject (status);
 			}
 		})
 	})

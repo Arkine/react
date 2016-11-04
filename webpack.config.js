@@ -76,6 +76,8 @@ config.postcss = [
 	//require('cssnano')({})
 ];
 
+config.devtool = 'sourcemap';
+
 config.resolve.root = [src,modules];
 
 config.resolve.alias = {
@@ -85,6 +87,11 @@ config.resolve.alias = {
 	'utils': join(src, 'utils')
 }
 
+/*
+*
+*	CSS Loader
+*
+ */
 const findLoader = (loaders, match) => {
   const found = loaders.filter(l => l &&
       l.loader && l.loader.match(match));

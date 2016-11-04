@@ -8,7 +8,7 @@ export default class App extends React.Component {
 	static contextTypes = {
 		route: PropTypes.object
 	}
-	
+
 	static propTypes = {
 		routes: PropTypes.object.isRequired,
 		history: PropTypes.object.isRequired
@@ -16,9 +16,9 @@ export default class App extends React.Component {
 
 	get content() {
 		return(
-			<Router 
+			<Router
 				routes={this.props.routes}
-				history={this.props.history} 
+				history={this.props.history}
 			/>
 		);
 	}

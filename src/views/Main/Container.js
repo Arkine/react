@@ -1,7 +1,9 @@
 import React from 'react';
 import Map, { GoogleApiWrapper } from 'google-maps-react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
-import { searchNearby } from 'utils/googleApiHelpers';
+import { searchNearby, getLocationCoords } from 'utils/googleApiHelpers';
 
 import Header from 'components/Header/Header';
 import Sidebar from 'components/Sidebar/Sidebar';
@@ -12,7 +14,8 @@ export class Container extends React.Component {
 
 	state = {
 		places: [],
-		pagination: null
+		pagination: null,
+		center: {},
 	}
 
 	onReady = (mapProps, map) => {
@@ -41,6 +44,22 @@ export class Container extends React.Component {
 		push(`/map/detail/${place.place_id}`);
 	}
 
+	onChangeHandler = (e) => {
+		let {address} = e.target.value;
+		console.log('address: ', address);
+		getLocationCoords(address)
+			.then((results) => {
+				this.setState({
+					center: {
+						lat: results[0].geometry.location.latitude,
+						long: results[0].geometry.location.longitude
+					}
+				})
+			}).catch((status, result) => {
+				console.log('There was an error', status)
+			})
+	}
+
 	render() {
 		let children = null;
 
@@ -63,28 +82,43 @@ export class Container extends React.Component {
 				google={this.props.google}
 				onReady={this.onReady}
 				className={styles.wrapper}
-				visible={false}
 				visible={!children || React.Children.count(children) == 0}
 			>
-				<Header />
+				<Header onChange={this.onChangeHandler}/>
+
 				<Sidebar
 					title={'Restaurants'}
 					places={this.state.places}
 					onListItemClick={this.onMarkerClick}
 				/>
+
 				<div className={styles.content}>
 					{children}
 				</div>
+
 			</Map>
 
 		);
 	}
 }
 
-Container.contextTypes = {
-	router: React.PropTypes.object
+const mapStateToProps = () => {
+	return {};
 }
 
-export default GoogleApiWrapper({
+const mapDispatchToProps = (dispatch) => {
+	return { dispatch }
+}
+
+Container = GoogleApiWrapper({
 	apiKey: __GAPI_KEY__
 })(Container);
+
+Container = withRouter(Container);
+
+Container = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Container);
+
+export default Container;
