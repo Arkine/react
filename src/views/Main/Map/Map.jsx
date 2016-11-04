@@ -67,11 +67,11 @@ MapComponent.defualtProps = {
 	onMarkerClick: identity
 }
 
-mapStateToProps = () => {
+const mapStateToProps = () => {
 	return {};
 }
 
-mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
 	return { dispatch }
 }
 
