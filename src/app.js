@@ -23,7 +23,7 @@ let realCompose = compose;
 if (process.env.NODE_ENV !== "production") {
 	realCompose = global.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 }
-
+// Added
 const store = createStore(reducers, realCompose(applyMiddleware(thunk)));
 
 ReactDOM.render(
