@@ -29,7 +29,8 @@ class MapComponent extends React.Component {
 		}
 
 		return this.props.places.map( place => {
-			return <Marker key={place.id}
+			return <Marker
+						key={place.id}
 						name={place.id}
 						place={place}
 						label={place.name}

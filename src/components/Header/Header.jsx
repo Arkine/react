@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import styles from './styles.module.css';
 
 export default class Header extends React.Component {
+
 	render() {
 		return (
 			<div className={styles.topbar}>
@@ -11,6 +12,7 @@ export default class Header extends React.Component {
 				<input
 					type="text"
 					placeholder="Enter Location..."
+					// value={this.state.value}
 					onChange={this.props.onChange}
 				/>
 				<section>

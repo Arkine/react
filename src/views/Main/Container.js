@@ -15,6 +15,7 @@ export class Container extends React.Component {
 	state = {
 		places: [],
 		pagination: null,
+		map: null,
 		center: {},
 	}
 
@@ -31,6 +32,7 @@ export class Container extends React.Component {
 			.then((results, pagination) => {
 				this.setState({
 					places: results,
+					map: map,
 					pagination
 				})
 			}).catch((status, result) => {
@@ -40,24 +42,40 @@ export class Container extends React.Component {
 
 	onMarkerClick = (item) => {
 		const {place} = item;
-		const {push} = this.context.router;
+		const {push} = this.props.router;
+
 		push(`/map/detail/${place.place_id}`);
 	}
 
 	onChangeHandler = (e) => {
-		let {address} = e.target.value;
-		console.log('address: ', address);
-		getLocationCoords(address)
+		let address = e.target.value;
+		let {google} = this.props;
+		let {map} = this.state.map;
+
+		let {coords} = getLocationCoords(google, address)
 			.then((results) => {
 				this.setState({
 					center: {
-						lat: results[0].geometry.location.latitude,
-						long: results[0].geometry.location.longitude
+						lat: results[0].geometry.location
 					}
 				})
 			}).catch((status, result) => {
 				console.log('There was an error', status)
 			})
+		console.log(this.state.center);
+		// const opts = {
+		// 	location: {center: {lat: -34.397, lng: 150.644}},
+		// 	radius: '50000',
+		// 	types: ['cafe']
+		// }
+
+		// searchNearby(google, map, opts)
+		// 	.then((results, pagination) => {
+		// 		this.setState({
+		// 			places: results,
+		// 			pagination
+		// 		})
+		// 	})
 	}
 
 	render() {
@@ -71,9 +89,7 @@ export class Container extends React.Component {
 					google: this.props.google,
 					places: this.state.places,
 					loaded: this.props.loaded,
-					router: this.context.router,
 					onMarkerClick: this.onMarkerClick
-
 				});
 		}
 

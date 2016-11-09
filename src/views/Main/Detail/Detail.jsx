@@ -34,7 +34,6 @@ export default class Detail extends React.Component {
 		this.setState({loading: true}, () => {
 			getDetails(google, map, placeId)
 			.then( place => {
-				console.log('place: ', place);
 				const {location} = place.geometry;
 				const loc = {
 					lat: location.lat(),

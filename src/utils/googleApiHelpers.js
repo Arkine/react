@@ -27,9 +27,10 @@ export function getDetails(google, map, placeId) {
 	})
 }
 
-export function getLocationCoords(address) {
+export function getLocationCoords(google, address) {
 	return new Promise((resolve, reject) => {
-		const service = new google.maps.GeoCoder();
+		const service = new google.maps.Geocoder();
+
 		service.geocode({'address': address}, (results, status) => {
 			if (status == google.maps.GeocoderStatus.OK) {
 				resolve(results);
