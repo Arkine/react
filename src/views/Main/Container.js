@@ -22,6 +22,10 @@ export class Container extends React.Component {
 	onReady = (mapProps, map) => {
 		const {google} = this.props;
 
+		this.setState({
+			map: map
+		});
+		console.log(map);
 		const opts = {
 			location: map.center,
 			radius: '50000',
@@ -32,13 +36,20 @@ export class Container extends React.Component {
 			.then((results, pagination) => {
 				this.setState({
 					places: results,
-					map: map,
 					pagination
 				})
 			}).catch((status, result) => {
 				console.log('There was an error: ', status)
 			})
 	}
+
+	// componentDidUpdate(prevProps, prevState) {
+	// 	if (!this.state.center) {
+	// 		return;
+	// 	}
+
+	// 	this.state.map.setCenter(this.state.center);
+	// }
 
 	onMarkerClick = (item) => {
 		const {place} = item;
@@ -47,22 +58,23 @@ export class Container extends React.Component {
 		push(`/map/detail/${place.place_id}`);
 	}
 
-	onChangeHandler = (e) => {
-		let address = e.target.value;
+	onSubmitHandler = (address) => {
 		let {google} = this.props;
-		let {map} = this.state.map;
+		let map = this.state.map;
 
-		let {coords} = getLocationCoords(google, address)
+		getLocationCoords(google, address)
 			.then((results) => {
 				this.setState({
-					center: {
-						lat: results[0].geometry.location
-					}
-				})
+					center: results[0].geometry.location
+				});
 			}).catch((status, result) => {
 				console.log('There was an error', status)
 			})
-		console.log(this.state.center);
+
+
+		console.log(map);
+		console.log('google: ', google);
+		// console.log('state: ', this.state);
 		// const opts = {
 		// 	location: {center: {lat: -34.397, lng: 150.644}},
 		// 	radius: '50000',
@@ -100,7 +112,7 @@ export class Container extends React.Component {
 				className={styles.wrapper}
 				visible={!children || React.Children.count(children) == 0}
 			>
-				<Header onChange={this.onChangeHandler}/>
+				<Header onSubmit={this.onSubmitHandler}/>
 
 				<Sidebar
 					title={'Restaurants'}

@@ -76,6 +76,9 @@ const mapDispatchToProps = (dispatch) => {
 	return { dispatch }
 }
 
-MapComponent = connect(mapStateToProps, mapDispatchToProps)(MapComponent);
+MapComponent = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(MapComponent);
 
 export default MapComponent;

@@ -32,6 +32,7 @@ export function getLocationCoords(google, address) {
 		const service = new google.maps.Geocoder();
 
 		service.geocode({'address': address}, (results, status) => {
+			console.log('helper: ', results);
 			if (status == google.maps.GeocoderStatus.OK) {
 				resolve(results);
 			} else {
