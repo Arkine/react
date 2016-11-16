@@ -5,7 +5,7 @@ import {
 	GET_MARKERS_FAILURE,
 } from "actions/map";
 
-const allLoaded = (state = false, action) => {
+export const allLoaded = (state = false, action) => {
 	switch (action.type) {
 		case GET_MARKERS_STARTED:
 			return false;
@@ -20,8 +20,3 @@ const allLoaded = (state = false, action) => {
 
 	return state;
 }
-
-
-export default combineReducers({
-	allLoaded
-})
