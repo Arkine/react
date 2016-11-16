@@ -5,6 +5,8 @@ import { withRouter } from 'react-router';
 
 import { searchNearby, getLocationCoords } from 'utils/googleApiHelpers';
 
+import { submitLocation } from 'actions/submit-location';
+
 import Header from 'components/Header/Header';
 import Sidebar from 'components/Sidebar/Sidebar';
 
@@ -16,6 +18,7 @@ export class Container extends React.Component {
 		places: [],
 		pagination: null,
 		map: null,
+		location: null,
 		center: {},
 	}
 
@@ -23,9 +26,10 @@ export class Container extends React.Component {
 		const {google} = this.props;
 
 		this.setState({
-			map: map
+			map: map,
+			center: map.center,
 		});
-		console.log(map);
+
 		const opts = {
 			location: map.center,
 			radius: '50000',
@@ -58,7 +62,7 @@ export class Container extends React.Component {
 		push(`/map/detail/${place.place_id}`);
 	}
 
-	onSubmitHandler = (address) => {
+	submitLocation = (address) => {
 		let {google} = this.props;
 		let map = this.state.map;
 
@@ -109,10 +113,11 @@ export class Container extends React.Component {
 			<Map
 				google={this.props.google}
 				onReady={this.onReady}
+				center={this.state.center}
 				className={styles.wrapper}
 				visible={!children || React.Children.count(children) == 0}
 			>
-				<Header onSubmit={this.onSubmitHandler}/>
+				<Header onSubmit={this.submitLocation}/>
 
 				<Sidebar
 					title={'Restaurants'}
@@ -130,13 +135,16 @@ export class Container extends React.Component {
 	}
 }
 
-const mapStateToProps = () => {
-	return {};
-}
+const mapStateToProps = (state) => ({
+	places: state.places,
+	location: state.location,
+});
 
-const mapDispatchToProps = (dispatch) => {
-	return { dispatch }
-}
+const mapDispatchToProps = (dispatch) =>({
+	submitLocation() {
+		dispatch(submitLocation(state.location));
+	}
+});
 
 Container = GoogleApiWrapper({
 	apiKey: __GAPI_KEY__

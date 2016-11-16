@@ -21,6 +21,7 @@ export function getMarkersFailure() {
 	}
 }
 
+
 export function getMarkers() {
 	return async (dispatch: Function, getState: Function) => {
 		dispatch(getMarkersStarted());
@@ -28,8 +29,7 @@ export function getMarkers() {
 		try {
 			return;
 		} catch(error) {
-			dispatch(getMarkersFailure());
-
+			dispatch(getMarkersFailure())
 			throw error;
 		}
 	}

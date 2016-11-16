@@ -1,6 +1,9 @@
 import React, { PropTypes as T } from 'react';
 import { connect } from 'react-redux';
+
 import classnames from 'classnames';
+import { getMarkers } from 'actions/markers';
+
 import Map, { GoogleApiWrapper, Marker } from 'google-maps-react';
 
 import styles from './styles.module.css';
@@ -49,6 +52,7 @@ class MapComponent extends React.Component {
 				google={this.props.google}
 				className={styles.map}
 				map={this.props.map}
+				center={this.props.center}
 				visible={!children || React.Children.count(children) == 0}
 			>
 
@@ -72,9 +76,11 @@ const mapStateToProps = () => {
 	return {};
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return { dispatch }
-}
+const mapDispatchToProps = (dispatch) => ({
+	renderMarkers() {
+		dispatch(getMarkers());
+	}
+})
 
 MapComponent = connect(
 	mapStateToProps,

@@ -1,11 +1,14 @@
 import React, { PropTypes as T } from 'react';
+import { connect } from 'react-redux';
 
-import {getDetails} from 'utils/googleApiHelpers';
+import { getDetails } from 'utils/googleApiHelpers';
+
+import { getPlaceInfo } from 'actions/details';
 
 import styles from './styles.module.css';
 import InfoBox from  '../InfoBox/InfoBox';
 
-export default class Detail extends React.Component {
+class Detail extends React.Component {
 	state = {
 		place: {},
 		location: {},
@@ -16,18 +19,18 @@ export default class Detail extends React.Component {
 		if (this.props.map &&
 			(prevProps.map !== this.props.map ||
 			prevProps.params.placeId !== this.props.params.placeId)) {
-				this.getDetails(this.props.map);
+				this.getPlaceDetails(this.props.map);
 		}
 	}
 
 	componentDidMount() {
 
 		if (this.props.map) {
-			this.getDetails(this.props.map);
+			this.getPlaceDetails(this.props.map);
 		}
 	}
 
-	getDetails(map) {
+	getPlaceDetails(map) {
 		const {google, params} = this.props;
 		const {placeId} = params;
 
@@ -86,3 +89,21 @@ export default class Detail extends React.Component {
 		)
 	}
 }
+
+
+const mapStateToProps = () => ({
+
+});
+
+const mapDispatchToProps = (dispatch) =>({
+	getDetails() {
+		dispatch(getPlaceInfo());
+	}
+});
+
+Detail = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Detail);
+
+export default Detail;
